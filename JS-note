@@ -1145,6 +1145,12 @@ DOM简介
             通过CSS选择器返回一组节点
             返回值是一个nodelist，与数组相似，可以使用forEach方法，即使只获取到一个节点时，也封装成nodelist返回
             仅支持IE7以上
+使用JS切换图片(没有成功)
+    分俩步：<img src="image.jpg">
+            <button id="prev">上一张</button>
+            ①获取按钮var prev = document.getElementsById("prev");
+            ②创建一个对象var img = document.getElementsByTagName("img")[0];
+            ③绑定单机响应函数prev.onclick = function(){img.src = "image1.jpg";}
 事件
     当用户与浏览器进行任何交互时都会产生相应的事件
     JS可以通过给事件绑定相应函数来使事件触发时执行相应的函数,相应函数会在执行事件时才会被执行，因此相应函数内部使用的变量可能会与预期不一致
