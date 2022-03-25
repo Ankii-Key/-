@@ -3,34 +3,78 @@ VUE：一套用于构建用户界面的渐进式VUEJavaScript框架
 渐进式：VUE可以自底向上逐层的应用
 VUE特点：组件化（封装：每个模块都有HTML,CSS,JS）；声明式编码；使用虚拟DOM和diff比较
 前置知识：ES6语法规范，SE6模块化，包管理器（npm），原型、原型链，数组常用方法，axios，promise
-1.配置Vue开发环境，建立一个简单的Vue实例
+1.配置Vue开发环境，建立一个简单的Vue实例（1-1）
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vue1-1</title>
     <script type="text/javascript" src="./vue.js"></script>
 </head>
 <body>
-    <div class="root">              //容器
-        <h1>Hello World!</h1>
-        欢迎，{{name}}          //模板
+    <div class="root">
+        <h1>插值语法</h1>
+        <!-- 模板：有插值语法(用在标签体内)和指令语法（用在标签属性） -->
+        Hello,{{school.name}}<br>
+        欢迎，{{name}}
+
+        <h1>指令语法</h1>
+        <a v-bind:href="url">百度</a>      <br>       
+        <!-- 绑定v-bind:可以简写为:   同理v-model:value=""可以简写为v-model="",  v-bind:是单向绑定 -->
+        <!-- name.toUpperCase 将字符串转为大写 -->
+        单向数据绑定(text文本)：<input type="text" v-bind:value="name"><br>
+        单向数据绑定(button按钮)：<input type="button" v-bind:value="name"><br>
+        单向数据绑定(submit提交)：<input type="submit" value="提交"><br>
+        双向数据绑定(text文本)：<input type="text" v-model:value="name">
+        <!-- v-model只能用在表单类元素上（输入类元素有value值） -->
     </div>
     <script type="text/javascript">
-        Vue.config.productionTip = false      
+        Vue.config.productionTip = false      //阻止vue在启动时生成生产提示
         //已搭建好开发环境 
 
         //创建Vue实例
-        const x = new Vue({
+        new Vue({            //容器和实例只能一一对应（否则会报错！）
             el:'.root'    ,        //类似于CSS类选择器    标签id对应#
             data:{
-                name: '贾渝'
-            }
+                name: '贾渝',          //Vue都用逗号隔开
+                school:{
+                    name: 'World'        //创建一个对象
+                },
+                url: 'http://www.baidu.com'
+            }                   
         })
-
-    </script>                //容器和实例只能一一对应（否则会报错！）
+    </script>
 </body>
 </html>
 
-
-
+2.el两种写法、data两种写法（1-2代码由1-1修改）
+//创建Vue实例
+const v = new Vue({            //容器和实例只能一一对应（否则会报错！）
+    //el:'.root'    ,        //类似于CSS类选择器    标签id对应#
+    // data:{
+    //     name: '贾渝',          
+    //     school:{
+    //         name: 'World'        
+    //     },
+    //     url: 'http://www.baidu.com'
+    // }
+    // data第二种写法:函数式
+    data:function(){
+    //:function可以省略不写
+        return{
+            name: '贾渝',          
+            school:{
+                name: 'World'        
+            },
+            url: 'http://www.baidu.com'
+        }
+    }
+})
+console.log(v)             //实例对象
+// el第二种写法
+v.$mount('.root')          //等同于el:'.root'
 
 
 
