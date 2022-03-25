@@ -1,0 +1,36 @@
+一、栈
+1.创建一个类表示栈
+class Stack {
+contructor() {
+    this.count = 0;
+    this.items = {};
+}}
+
+2.为栈声明方法，加在class内
+isEmpty() {
+    return this.items.length === 0;
+}
+//push(element){
+//    this.items.push(element)
+//}
+push(element) {
+    this.items[this.count] = element;             第一种push方法会报错（原因： ）
+    this.count++;
+}
+pop() {
+    return this.items.pop();
+}
+peek() {
+    return this.items[this.items.length - 1];
+}
+size() {
+    return this.items.length;
+}
+clear() {
+    this.items = [];
+}
+
+3.创建对象和Stack栈交互
+const stack = new Stack();
+stack.items = {};           声明对象为栈，书上没有这句，但是不写这句就会报错（原因：  ）
+
