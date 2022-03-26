@@ -3,6 +3,31 @@ VUE：一套用于构建用户界面的渐进式VUEJavaScript框架
 渐进式：VUE可以自底向上逐层的应用
 VUE特点：组件化（封装：每个模块都有HTML,CSS,JS）；声明式编码；使用虚拟DOM和diff比较
 前置知识：ES6语法规范，SE6模块化，包管理器（npm），原型、原型链，数组常用方法，axios，promise
+
+模板
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板</title>
+    <script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+    <div class="root">    
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false   
+        const vm = new Vue({
+            el: '.root',
+            data:{ }
+        })
+    </script>
+</body>
+</html>
+
+
 1.配置Vue开发环境，建立一个简单的Vue实例（1-1）
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +47,7 @@ VUE特点：组件化（封装：每个模块都有HTML,CSS,JS）；声明式编
 
         <h1>指令语法</h1>
         <a v-bind:href="url">百度</a>      <br>       
-        <!-- 绑定v-bind:可以简写为:   同理v-model:value=""可以简写为v-model="",  v-bind:是单向绑定 -->
+        <!-- 绑定v-bind:可以简写为:   同理v-model:value=""可以简写为v-model="",  v-bind:是单向绑定 --   ，v-on:click="" 可以简写为@click="" >
         <!-- name.toUpperCase 将字符串转为大写 -->
         单向数据绑定(text文本)：<input type="text" v-bind:value="name"><br>
         单向数据绑定(button按钮)：<input type="button" v-bind:value="name"><br>
@@ -78,9 +103,157 @@ v.$mount('.root')          //等同于el:'.root'
 
 3.{{ }}可以写表达式和data定义的对象和vue内的属性（$...）
 
-4.Object.defineProperty
+4.Object.defineProperty  向数组添加不能参加遍历的属性
+let person = {
+    name: '贾渝',
+    sex: '男'
+    //age: 18
+}
+Object.defineProperty(person,'age',{
+    value: 18       ,     //不参加遍历
+    enumerable: true   ，     //可遍历
+    writable: true          //可在控制台修改
+    configurable: true         //可在控制台删除
+    //当有人读取person.age时，get函数（getter）就会被调用，返回age的值
+    get:function() {
+    return number
+},
+    //当有人修改person.age时，set函数（setter）就会被调用，返回修改set的值
+    set:function(value) {
+    number = value
+}
+})
 
+let声明块级作用域变量，let定义的属性不能修改
+遍历的两种方法
+console.log(Object.keys(person))
 
+for (let key in person) {
+    console.log('@',person[key])
+
+5.数据代理：通过一个对象代理对另一个对象中属性的操作（读/写）
+<script type="text/javascript">
+    let obj1 = {x:100}
+    let obj2 = {y:200}
+    Object.defineProperty(obj2,'x',{
+        get:function() {
+            return obj1.x
+        },
+        set:function(value) {
+            obj1.x = value
+        }
+    })
+</script>
+通过obj1.x能够读取obj2.x值，修改obj2.x可以改变obj1.x大小
+<body>
+    <div class="root">
+        <h1>学校：{{name}}</h1>
+        <h2>地址：{{address}}</h2>        
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false   
+        const vm = new Vue({
+            el: '.root',
+            data:{
+                name: '清华大学',
+                address:'清华园2号'  }
+        })
+    </script>
+</body>
+vm.name=vm._data.name  ————数据代理
+
+6.事件处理
+<body>
+    <div class="root">  
+        <h1>Hello {{name}}!</h1>
+        <button v-on:click="showInfo1">按钮</button> <br>
+        <button v-on:click="showInfo2(66,'Hello')">按钮</button>
+        <button v-on:click="showInfo3($event,66)">按钮</button>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        // function showInfo() {
+        //     alert('Hello')
+        // }   
+        new Vue({
+            el: '.root',
+            data:{ 
+                name: 'World'
+            }  ,
+            methods:{
+            showInfo1(event){
+                console.log(event.target.innerText)
+            },
+            showInfo2(number,string){
+                console.log(number,string)
+            },
+            showInfo3(event,number){
+                console.log(event.target.innerText,number)
+            }
+            }
+        })
+    </script>
+</body>
+大括号是对象，data里面的是属性：属性值
+method内不做数据代理，只调用
+
+7.vue中的事件修饰符:修饰符可以连着写
+     1.prevent: 阻止默认事件（常用）;
+     2.stop:阻止事件冒泡（常用）;
+     3.once:事件只触发一次（常用）;
+     4.capture:使用事件的捕获模式,在嵌套中和冒泡执行过程相反;
+     5.self:只有event.target是当前操作的元素时才触发事件，一般用在嵌套中阻止冒泡;
+     6.passive:事件的默认行为立即执行,无需等待事件回调执行完毕，原先需要函数执行完后再执行行为，passive就不用等待函数执行;
+ click点击；scroll滚动条；wheel鼠标滚轮;keydown按下松开执行;keyup按下执行
+
+8.Vue中常用的按键别名;
+回车 =>enter
+删除=>delete(插获“删除”和“退格”键)
+退出=>esc 
+空格=>space
+换行=>tab
+上=>up
+下=> down
+左=>left
+右=> right
+
+9.计算属性
+<body>
+    <div class="root">   
+        姓：<input type="text" v-model:value="firstname"><br/><br/>
+        名：<input type="text" v-model:value="lastname"><br/><br/>
+        姓名：<span>{{firstname}}-{{lastname}}</span><br/><br/>
+        姓名：<span>{{fullname}}</span>
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false   
+        const vm = new Vue({
+            el: '.root',
+            data:{ 
+                firstname: '贾',
+                lastname: '渝'
+            },
+            computed:{
+                fullname:{
+                    get() {
+                        console.log('get被调用了')
+                        return this.firstname + '-' + this.lastname
+                    },
+                    set(value) {
+                        console.log('set被调用了')
+                        console.log(value)
+                        const arr = value.split('-')
+                        this.firstname=arr[0]
+                        this.lastname=arr[1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+通过已有的属性计算得来
+有缓存，多次调用只计算一次；在属性改变时才重新计算
 
 
 
