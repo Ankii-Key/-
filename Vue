@@ -76,8 +76,9 @@ console.log(v)             //实例对象
 // el第二种写法
 v.$mount('.root')          //等同于el:'.root'
 
+3.{{ }}可以写表达式和data定义的对象和vue内的属性（$...）
 
-
+4.Object.defineProperty
 
 
 
