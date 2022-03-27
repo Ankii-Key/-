@@ -4,102 +4,85 @@ VUE：一套用于构建用户界面的渐进式VUEJavaScript框架
 VUE特点：组件化（封装：每个模块都有HTML,CSS,JS）；声明式编码；使用虚拟DOM和diff比较
 前置知识：ES6语法规范，SE6模块化，包管理器（npm），原型、原型链，数组常用方法，axios，promise
 
-模板
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模板</title>
-    <script type="text/javascript" src="./vue.js"></script>
-</head>
-<body>
-    <div class="root">    
-    </div>
-    <script type="text/javascript">
-        Vue.config.productionTip = false   
-        const vm = new Vue({
-            el: '.root',
-            data:{ }
-        })
-    </script>
-</body>
-</html>
-
-
-1.配置Vue开发环境，建立一个简单的Vue实例（1-1）
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vue1-1</title>
-    <script type="text/javascript" src="./vue.js"></script>
-</head>
-<body>
+Vue2主要模板
+引入Vue
+    <script type="text/javascript" src="./vue.js"><script>
+将Vue实例接入容器    
+    <div class="root"></div>   对应      const vm = new Vue({el: '.root'})
+    <div id="root"></div>   对应      const vm = new Vue({el: '#root'})
+    容器和实例只能一一对应（否则会报错！）
+容器常用绑定：
+    v-bind:
+    v-model:
+    v-on:
+    v-bind:可以简写为:   
+    v-model:value=""可以简写为v-model=""
+    v-on:click="" 可以简写为@click=""
+    单向数据绑定(text文本)：<input type="text" v-bind:value="name"><br>
+    单向数据绑定(button按钮)：<input type="button" v-bind:value="name"><br>
+    单向数据绑定(submit提交)：<input type="submit" value="提交"><br>
+    双向数据绑定(text文本)：<input type="text" v-model:value="name">
+    v-model只能用在表单类元素上（输入类元素有value值）
+    v-if=" "  ;  v-else-if=" "  ;   v-else=" "  ;   v-show=" "  ;   v-for="item in items"
+容器
     <div class="root">
-        <h1>插值语法</h1>
-        <!-- 模板：有插值语法(用在标签体内)和指令语法（用在标签属性） -->
-        Hello,{{school.name}}<br>
-        欢迎，{{name}}
-
-        <h1>指令语法</h1>
-        <a v-bind:href="url">百度</a>      <br>       
-        <!-- 绑定v-bind:可以简写为:   同理v-model:value=""可以简写为v-model="",  v-bind:是单向绑定 --   ，v-on:click="" 可以简写为@click="" >
-        <!-- name.toUpperCase 将字符串转为大写 -->
         单向数据绑定(text文本)：<input type="text" v-bind:value="name"><br>
         单向数据绑定(button按钮)：<input type="button" v-bind:value="name"><br>
         单向数据绑定(submit提交)：<input type="submit" value="提交"><br>
-        双向数据绑定(text文本)：<input type="text" v-model:value="name">
-        <!-- v-model只能用在表单类元素上（输入类元素有value值） -->
+        双向数据绑定(text文本)：<input type="text" v-model:value="name"> 
+    
     </div>
+Vue实例
     <script type="text/javascript">
-        Vue.config.productionTip = false      //阻止vue在启动时生成生产提示
-        //已搭建好开发环境 
-
-        //创建Vue实例
-        new Vue({            //容器和实例只能一一对应（否则会报错！）
-            el:'.root'    ,        //类似于CSS类选择器    标签id对应#
-            data:{
-                name: '贾渝',          //Vue都用逗号隔开
+        Vue.config.productionTip = false        阻止vue在启动时生成生产提示
+        const vm = new Vue({
+            el:'.root',                         el第二种写法:vm.$mount('.root')
+            data:{                              data第二种写法：函数式data:function(){return name:'',}
+                url: '',
+                value: '',
+                name: ''
                 school:{
-                    name: 'World'        //创建一个对象
+                    name: ''
                 },
-                url: 'http://www.baidu.com'
-            }                   
-        })
-    </script>
-</body>
-</html>
-
-2.el两种写法、data两种写法（1-2代码由1-1修改）
-//创建Vue实例
-const v = new Vue({            //容器和实例只能一一对应（否则会报错！）
-    //el:'.root'    ,        //类似于CSS类选择器    标签id对应#
-    // data:{
-    //     name: '贾渝',          
-    //     school:{
-    //         name: 'World'        
-    //     },
-    //     url: 'http://www.baidu.com'
-    // }
-    // data第二种写法:函数式
-    data:function(){
-    //:function可以省略不写
-        return{
-            name: '贾渝',          
-            school:{
-                name: 'World'        
             },
-            url: 'http://www.baidu.com'
-        }
-    }
-})
-console.log(v)             //实例对象
-// el第二种写法
-v.$mount('.root')          //等同于el:'.root'
+            methods:{                           methods：{函数}一般用在标签属性中，比如点击事件
+                
+            },
+            computed:{                          computed计算属性用在标签的值
+                fullname:{                  
+                    get() {                     getter改变firstname和lastname能改变fullname
+                    console.log('get被调用了')
+                    return this.firstname + '-' + this.lastname
+                    },
+                    set(value) {                setter改变fullname能改变firstname和lastname
+                        console.log('set被调用了')
+                        console.log(value)
+                        const arr = value.split('-')
+                        this.firstname=arr[0]
+                        this.lastname=arr[1]
+            }，
+            
+            watch:{                             watch侦听属性
+                firstname:function(afterValue,beforeValue){
+                    this.fullname=afterValue + '-' + this.lastname
+                }
+            }
+        
+        
+        
+        })
+
+
+---------------------------------------------------------------------------------------------------------------------
+杂项：
+    v-bind:class="{sad:isActive}"      必须要加{}，isActive可以从data和methods定义（true,false）
+
+
+
+
+        <h1>插值语法</h1>
+        <!-- 模板：有插值语法(用在标签体内)和指令语法（用在标签属性） -->
+
 
 3.{{ }}可以写表达式和data定义的对象和vue内的属性（$...）
 
@@ -254,6 +237,10 @@ method内不做数据代理，只调用
 </body>
 通过已有的属性计算得来
 有缓存，多次调用只计算一次；在属性改变时才重新计算
+
+
+
+
 
 
 
