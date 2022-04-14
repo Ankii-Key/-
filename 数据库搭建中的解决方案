@@ -1,0 +1,1 @@
+1.运行https://blog.csdn.net/qq_41000974/article/details/117885974需要以管理员方式启动VSCODE，在终端中输入npm install mysql --save
