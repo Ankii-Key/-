@@ -1,0 +1,81 @@
+Node.js是基于Chrome V8引擎的JS运行环境
+https://brucecai55520.gitee.io/bruceblog/notes/nodejs/node.html#%E5%85%B6%E5%AE%83%E6%93%8D%E4%BD%9C
+一 fs文件系统模块
+    fs 模块中所有的操作都有两种形式可供选择:同步和异步
+    同步文件系统会阻塞程序的执行，也就是除非操作完毕，否则不会向下执行代码
+    异步文件系统不会阻塞程序的执行，而是在操作完成时，通过回调函数将结果返回
+    实际开发很少用同步方式，因此只介绍异步方式
+1 简单文件读取
+fs.readFile(path[, options], callback)
+    path：文件路径
+    options：配置选项，若是字符串则指定编码格式
+    encoding：编码格式
+    flag：打开方式
+    callback：回调函数
+    err：错误信息
+    data：读取的数据，如果未指定编码格式则返回一个 Buffer
+        const fs = require('fs')
+        fs.readFile('./1-1.txt', 'utf-8', function(err,data)  {
+            if(err) {
+                return console.log('error')
+            }
+            console.log(data)
+        })
+如果文件读取成功，则err值为null；读取失败，则data值为undefined，err值为错误对象
+
+2 简单文件写入
+fs.writeFile(file, data[, options], callback)
+    file：文件路径
+    data：写入内容
+    options：配置选项，包含 encoding, mode, flag；若是字符串则指定编码格式
+    callback：回调函数
+        const fs = require('fs')
+        fs.writeFile('./files/2.txt', 'Hello Nodejs', function (err) {
+          if (err) {
+            return console.log('failed!' + err.message)
+          }
+          console.log('success!')
+        })
+如果文件写入成功，则err值为null；写入失败，则err值为错误对象
+注：路径动态拼接问题 __dirname获取文件所处的绝对路径    
+fs.readFile(__dirname + '/files/1.txt', 'utf8', function(err, data)
+
+二 模块化
+模块化是指解决一个复杂问题时，自顶向下逐层把系统划分为若干模块的过程，模块是可组合、分解和更换的单元。
+Node.js 中模块的分类：内置模块    自定义模块    第三方模块    require
+自定义模块中都有一个 module 对象，存储了和当前模块有关的信息.默认情况下，exports 和 module.exports 指向同一个对象。以 module.exports 指向的对象为准。
+module.exports 导出模块作用域的对象
+const m = 1;
+module.exports.m = m;
+
+CommonJS 模块化规范
+每个模块内部，module 变量代表当前模块
+module 变量是一个对象，module.exports 是对外的接口
+加载某个模块即加载该模块的 module.exports 属性
+
+三 NPM和包（都是第三方模块）
+包是内置模块封装出来的，提供了更高级更方便的API
+在项目中安装包 npm install 包的完整名称
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
