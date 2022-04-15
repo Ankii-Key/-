@@ -79,3 +79,8 @@ module 变量是一个对象，module.exports 是对外的接口
 
 
 1
+
+
+在使用nodejs框架时，输出Mysql数据中RowDataPacket类型的对象
+可使用var temp=new String(results[序号].字段名)取得字段值
+Mysql数据库所有人可用时必须要在创建数据库时设置
