@@ -1,1 +1,75 @@
+旋转div
+    transform:rotate(30deg);   瞬时针旋转30度
+CSS3可以做  选择器  盒模型  背景和边框  文字特效  2D/3D转换  动画  多列布局  用户界面  
+CSS3边框border
+	  border: 2px solid;  边框厚度 形状
+	  border-radius: 25px;  边框圆角
+    box-shadow: 10px 10px 5px #888888;  垂直阴影 水平阴影  模糊距离  颜色
+    border-image 属性用于指定一个元素的边框图像    border-image: url(border.png) 30 round;
+选择器
+    标签选择器 类选择器 id选择器 通配符选择器 后代选择器
+    .class   #id     *全选     div选择所有<div>元素      div,p选择所有<div>元素和<p>元素（并集选择器）
+    容易记混    div>p选择所有父级是<div>元素的<p>元素（子选择器）    div p选择<div>元素内的所有<p>元素（后代选择器）
+    [target]选择所有带有target属性的元素
+    a:hover鼠标放在a标签上时选择     （一般做颜色的改变）
+听觉样式表
+字体
+    字体选择  {font-family:"Times New Roman",Arial,"Microsoft Yahe","微软雅黑"}
+    字体粗细  {font-weight:normal|bold|bolder|lighter|number}400=normal   700=bold
+    字号选择 font-size
+    字体倾斜 font-style:italic
+    合写font：文字样式 文字粗细 文字大小 文字字体   前面两项可以省略，后面两项必须保留
+    字体颜色： color：red；
+文本
+    text-align：left|center|right;  设置文本内容的对齐方式
+    text-decoration: none|underline|overline|line-through;没有装饰线|下划线|上划线|删除线；
+    text-indent: 2pm;指定文本的第一行缩进
+    line-height:2em;设置行高  行高包括上间距，文本高度，下间距
+  
 
+动画效果（变换背景颜色）
+    {animation:mymove 5s infinite;}
+    @keyframes mymove{from {background-color:red;}to {background-color:blue;}}
+  Safari 和 Chrome 补充-webkit-        Mozila补充-moz-
+    {-webkit-animation:mymove 5s infinite;}
+    @-webkit-keyframes mymove{from {background-color:red;}to {background-color:blue;}}
+部分函数
+    attr（）返回元素的属性值      IE8需要!DOCTYPE才支持attr函数<!DOCTYPE html>
+    在每个连接后面插入连接内容a:after {content: " (" attr(href) ")";}
+    calc（）计算CSS的属性值
+    counter()设置计数器section
+    radial-gradient(red, green, blue);三层径向渐变
+CSS属性
+    align-content
+    align-content: stretch|center|flex-start|flex-end|initial|inherit;
+                    默认值拉伸|容器中心|开头|结尾|设置该属性为默认值|从父元素继承该元素
+    困难点：display: flex;弹性盒将横向排版的盒子变成纵向或是将纵向排版的盒子变成横向
+    flex-wrap: wrap;
+    当一个大盒子中有三个小盒子时 flex: 1;可以均匀分配大盒子给小盒子
+块级元素、行内元素、行内块元素
+    常见的块级元素：<div>、<h1>~<h6>、<p>、<ul>、<ol>、<li>
+    块级元素的特点：独占一行；可以调节高度宽度内外边距；宽度默认是容器（父级宽度）的100%；里面可以放行内或块级元素
+    注意：文字类的元素<p>、<h1>~<h6>都是文字类块级标签，里面不能存放其他块级元素
+    
+    常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>
+    特点：行内元素不能设置宽高；默认宽度和高度与本身内容有关；
+    
+    常见的行内块元素：<img />、<input />、<td>
+    特点：一行可以显示多个；可调节高度宽度行高内外边距
+
+    转换为块元素： display:block
+    转换为行内元素： display:inline
+    转换为行内块元素: display:inline-block
+
+背景
+    background-color:transport;(transport默认透明)
+    background-image
+
+
+
+
+
+
+
+
+    
