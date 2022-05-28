@@ -14,7 +14,7 @@ Vue2主要模板
 容器常用绑定：
     v-bind:
     v-model:
-    v-on:
+    v-on:   鼠标点击事件
     v-bind:可以简写为:   
     v-model:value=""可以简写为v-model=""
     v-on:click="" 可以简写为@click=""
